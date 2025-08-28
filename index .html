@@ -1,0 +1,582 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ES Equilíbrio - Redução da Desigualdade no Espírito Santo</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        body {
+            font-family: 'Montserrat', sans-serif;
+            scroll-behavior: smooth;
+        }
+        .gradient-bg {
+            background: 
+    linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)),
+    url(assets/appdas.jpg);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: bottom;
+
+        }
+        .card-hover:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+        .fade-in {
+            animation: fadeIn 0.8s ease-in-out;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -30px;
+            top: 0;
+            width: 15px;
+            height: 15px;
+            border-radius: 50%;
+            background: #228B22;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-800">
+    <!-- Header -->
+    <header class="sticky top-0 z-50 bg-white shadow-sm">
+        <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+            <div class="flex items-center">
+                <div class="w-10 h-10 rounded-full bg-blue-600 flex items-center justify-center mr-2">
+                    <img class="imga fas fa-balance-scale text-white" src="assets/es.png">
+                </div>
+                <h1 class="text-xl font-bold text-blue-600">ES <span class="text-green-600">Equilíbrio</span></h1>
+            </div>
+            <nav class="hidden md:block">
+                <ul class="flex space-x-8">
+                    <li><a href="#inicio" class="text-blue-600 hover:text-green-600 transition">Início</a></li>
+                    <li><a href="#diagnosticos" class="hover:text-blue-600 transition">Diagnósticos</a></li>
+                    <li><a href="#propostas" class="hover:text-blue-600 transition">Propostas</a></li>
+                    <li><a href="#simulacao" class="hover:text-blue-600 transition">Simulação</a></li>
+                    <li><a href="#participe" class="hover:text-blue-600 transition">Participe</a></li>
+                </ul>
+            </nav>
+            <button class="md:hidden text-blue-600">
+                <i class="fas fa-bars text-2xl"></i>
+            </button>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="inicio" class="gradient-bg text-white py-20 md:py-32"" >
+        <div class="container mx-auto px-4 flex flex-col md:flex-row items-center">
+            <div class="md:w-1/2 mb-10 md:mb-0 fade-in" >
+                <h1 class="text-4xl md:text-5xl font-bold mb-4">Desigualdade Regional no Espírito Santo</h1>
+                <h2 class="text-xl md:text-2xl mb-6">Reduzindo Desigualdades entre a Grande Vitória e o Interior</h2>
+                <p class="mb-8 text-lg">50% da população na RMGV gera 70% do PIB de R$ 204 bilhões em 2025.</p>
+                <a href="#diagnosticos" class="bg-white text-blue-600 px-6 py-3 rounded-full font-semibold hover:bg-gray-100 transition inline-block">Explore os Dados</a>
+            </div>
+             
+            </div>
+        </div>
+    </section>
+
+    <!-- Diagnósticos Section -->
+    <section id="diagnosticos" class="py-16 bg-white">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl font-bold text-center mb-12 text-blue-600">Diagnósticos Regionais</h2>
+            
+            <div class="grid md:grid-cols-2 gap-8 mb-12">
+                <div class="bg-gray-50 p-6 rounded-xl shadow-sm">
+                    <h3 class="text-xl font-semibold mb-4 text-green-600 flex items-center">
+                        <i class="fas fa-chart-bar mr-2"></i> PIB per capita por região
+                    </h3>
+                    <div class="h-64">
+                        <canvas id="pibChart"></canvas>
+                    </div>
+                </div>
+                <div class="bg-gray-50 p-6 rounded-xl shadow-sm">
+                    <h3 class="text-xl font-semibold mb-4 text-blue-600 flex items-center">
+                        <i class="fas fa-user-graduate mr-2"></i> IDHM Evolução 2010-2025
+                    </h3>
+                    <div class="h-64">
+                        <canvas id="idhmChart"></canvas>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="grid md:grid-cols-3 gap-6">
+                <div class="bg-gray-50 p-6 rounded-xl shadow-sm card-hover transition">
+                    <div class="text-blue-600 text-3xl mb-3">
+                        <i class="fas fa-home"></i>
+                    </div>
+                    <h3 class="font-semibold mb-2">Infraestrutura</h3>
+                    <p class="text-gray-600">90% cobertura de internet na RMGV vs. 60% no interior rural.</p>
+                </div>
+                <div class="bg-gray-50 p-6 rounded-xl shadow-sm card-hover transition">
+                    <div class="text-green-600 text-3xl mb-3">
+                        <i class="fas fa-briefcase"></i>
+                    </div>
+                    <h3 class="font-semibold mb-2">Emprego</h3>
+                    <p class="text-gray-600">5% desemprego na RMGV vs. 12% em Colatina.</p>
+                </div>
+                <div class="bg-gray-50 p-6 rounded-xl shadow-sm card-hover transition">
+                    <div class="text-blue-600 text-3xl mb-3">
+                        <i class="fas fa-heartbeat"></i>
+                    </div>
+                    <h3 class="font-semibold mb-2">Saúde</h3>
+                    <p class="text-gray-600">Expectativa de vida: 78,2 anos em Vitória vs. 72,8 em Ponto Belo.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Propostas Section -->
+    <section id="propostas" class="py-16 bg-gray-50">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl font-bold text-center mb-12 text-green-600">Propostas Estratégicas</h2>
+            
+            <div class="max-w-4xl mx-auto">
+                <div class="relative">
+                    <!-- Timeline -->
+                    <div class="border-l-2 border-green-600 pl-8 space-y-12">
+                        <!-- Short Term -->
+                        <div class="timeline-item relative">
+                            <div class="bg-white p-6 rounded-xl shadow-sm card-hover transition">
+                                <div class="flex items-center mb-3">
+                                    <div class="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center mr-3">
+                                        <i class="fas fa-clock text-blue-600"></i>
+                                    </div>
+                                    <h3 class="text-xl font-semibold text-blue-600">Curto Prazo (1-2 anos)</h3>
+                                </div>
+                                <ul class="space-y-2 text-gray-700">
+                                    <li class="flex items-start">
+                                        <i class="fas fa-check-circle text-green-500 mt-1 mr-2"></i>
+                                        <span>Expansão do Bolsa Família com bônus de R$ 200 para famílias em Colatina</span>
+                                    </li>
+                                    <li class="flex items-start">
+                                        <i class="fas fa-check-circle text-green-500 mt-1 mr-2"></i>
+                                        <span>Incentivos fiscais de 20% no ICMS para indústrias em Linhares</span>
+                                    </li>
+                                    <li class="flex items-start">
+                                        <i class="fas fa-check-circle text-green-500 mt-1 mr-2"></i>
+                                        <span>Manutenção de 100 km de rodovias na BR-259</span>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        
+                        <!-- Medium Term -->
+                        <div class="timeline-item relative">
+                            <div class="bg-white p-6 rounded-xl shadow-sm card-hover transition">
+                                <div class="flex items-center mb-3">
+                                    <div class="w-10 h-10 rounded-full bg-green-100 flex items-center justify-center mr-3">
+                                        <i class="fas fa-calendar-alt text-green-600"></i>
+                                    </div>
+                                    <h3 class="text-xl font-semibold text-green-600">Médio Prazo (3-5 anos)</h3>
+                                </div>
+                                <ul class="space-y-2 text-gray-700">
+                                    <li class="flex items-start">
+                                        <i class="fas fa-check-circle text-green-500 mt-1 mr-2"></i>
+                                        <span>Fundos regionais com 30% do orçamento para microcrédito em Cachoeiro</span>
+                                    </li>
+                                    <li class="flex items-start">
+                                        <i class="fas fa-check-circle text-green-500 mt-1 mr-2"></i>
+                                        <span>Construção de corredores logísticos como ferrovia Linhares-Vitória (R$ 2 bi)</span>
+                                    </li>
+                                    <li class="flex items-start">
+                                        <i class="fas fa-check-circle text-green-500 mt-1 mr-2"></i>
+                                        <span>50 novas UBS no Norte do estado</span>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        
+                        <!-- Long Term -->
+                        <div class="timeline-item relative">
+                            <div class="bg-white p-6 rounded-xl shadow-sm card-hover transition">
+                                <div class="flex items-center mb-3">
+                                    <div class="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center mr-3">
+                                        <i class="fas fa-chart-line text-blue-600"></i>
+                                    </div>
+                                    <h3 class="text-xl font-semibold text-blue-600">Longo Prazo (6+ anos)</h3>
+                                </div>
+                                <ul class="space-y-2 text-gray-700">
+                                    <li class="flex items-start">
+                                        <i class="fas fa-check-circle text-green-500 mt-1 mr-2"></i>
+                                        <span>Reformas tributárias com royalties do petróleo para equalização</span>
+                                    </li>
+                                    <li class="flex items-start">
+                                        <i class="fas fa-check-circle text-green-500 mt-1 mr-2"></i>
+                                        <span>Aeroportos regionais em Cachoeiro e outras cidades</span>
+                                    </li>
+                                    <li class="flex items-start">
+                                        <i class="fas fa-check-circle text-green-500 mt-1 mr-2"></i>
+                                        <span>Programas universitários para interior elevando IDHM para 0,700 até 2035</span>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Simulação Section -->
+    <section id="simulacao" class="py-16 bg-white">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl font-bold text-center mb-12 text-blue-600">Simulação de Resultados</h2>
+            
+            <div class="grid md:grid-cols-2 gap-8 mb-12">
+                <div class="bg-gray-50 p-6 rounded-xl shadow-sm">
+                    <h3 class="text-xl font-semibold mb-4 text-green-600">Projeção de Redução da Desigualdade</h3>
+                    <div class="h-64">
+                        <canvas id="desigualdadeChart"></canvas>
+                    </div>
+                </div>
+                <div class="bg-gray-50 p-6 rounded-xl shadow-sm">
+                    <h3 class="text-xl font-semibold mb-4 text-blue-600">Vantagens e Riscos</h3>
+                    <div class="overflow-x-auto">
+                        <table class="min-w-full bg-white" style="border-radius: 8px;" >
+                            <thead>
+                                <tr>
+                                    <th class="py-2 px-4 border-b text-left">Fator</th>
+                                    <th class="py-2 px-4 border-b text-left">Impacto</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="py-2 px-4 border-b">Crescimento PIB</td>
+                                    <td class="py-2 px-4 border-b text-green-600">+4% PIB estadual</td>
+                                </tr>
+                                <tr>
+                                    <td class="py-2 px-4 border-b">Migração</td>
+                                    <td class="py-2 px-4 border-b text-green-600">Redução de 25%</td>
+                                <tr>
+                                  <tr>
+                        <td class="py-2 px-4 border-b">Educação</td>
+                        <td class="py-2 px-4 border-b text-green-600">Aumento de 30% no acesso ao ensino técnico e superior</td>
+                      </tr>
+                      <tr>
+                        <td class="py-2 px-4 border-b">Tecnologia</td>
+                        <td class="py-2 px-4 border-b text-green-600">Inclusão digital amplia oportunidades de trabalho</td>
+                      </tr>
+                                  
+                                    <td class="py-2 px-4 border-b">Royalties</td>
+                                    <td class="py-2 px-4 border-b text-red-600">Déficit se caírem 10-15%</td>
+                                </tr>
+                              
+                                
+
+                                <table class="min-w-full bg-white" style="border-radius: 8px;">
+                    <thead>
+                    </thead>
+                    </tbody>
+                  </table>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="bg-blue-50 p-6 rounded-xl shadow-sm max-w-4xl mx-auto">
+                <h3 class="text-xl font-semibold mb-4 text-blue-600">Metas de Indicadores</h3>
+                <div class="space-y-4">
+                    <div>
+                        <div class="flex justify-between mb-1">
+                            <span class="text-sm font-medium">Redução do Gini (atual: 0.42)</span>
+                            <span class="text-sm font-medium">Meta: 0.40 até 2035</span>
+                        </div>
+                        <div class="w-full bg-gray-200 rounded-full h-2.5">
+                            <div class="bg-blue-600 h-2.5 rounded-full" style="width: 60%"></div>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="flex justify-between mb-1">
+                            <span class="text-sm font-medium">Aumento do IDHM Interior (atual: 0.632)</span>
+                            <span class="text-sm font-medium">Meta: 0.700 até 2035</span>
+                        </div>
+                        <div class="w-full bg-gray-200 rounded-full h-2.5">
+                            <div class="bg-green-600 h-2.5 rounded-full" style="width: 45%"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Participe Section -->
+    <section id="participe" class="py-16 bg-gray-50">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl font-bold text-center mb-12 text-green-600">Participe do Plano</h2>
+            
+            <div class="grid md:grid-cols-2 gap-8">
+                <div class="bg-white p-6 rounded-xl shadow-sm">
+                    <h3 class="text-xl font-semibold mb-4 text-blue-600">Envie seu Feedback</h3>
+                    <form class="space-y-4">
+                        <div>
+                            <label class="block text-gray-700 mb-1">Nome</label>
+                            <input type="text" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                        </div>
+                        <div>
+                            <label class="block text-gray-700 mb-1">E-mail</label>
+                            <input type="email" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                        </div>
+                        <div>
+                            <label class="block text-gray-700 mb-1">Município</label>
+                            <select class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                                <option>Selecione...</option>
+                                <option>Vitória</option>
+                                 <option>Cariacica</option>
+                                  <option>Viana</option>
+                                <option>Linhares</option>
+                                 <option>Serra</option>
+                                  <option>São Mateus</option>
+                                   <option>Domingos Martins</option>
+                                <option>Cachoeiro de Itapemirim</option>
+                                <option>Colatina</option>
+                                <option>Outro</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-gray-700 mb-1">Mensagem</label>
+                            <textarea rows="4" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"></textarea>
+                        </div>
+                        <button type="submit" class="bg-green-600 text-white px-6 py-2 rounded-lg hover:bg-green-700 transition">Enviar</button>
+                    </form>
+                </div>
+                
+                <div class="bg-white p-6 rounded-xl shadow-sm">
+                    <h3 class="text-xl font-semibold mb-4 text-blue-600">Qual proposta você apoia mais?</h3>
+                    <div class="space-y-4">
+                        <div class="flex items-center">
+                            <input id="short-term" name="proposal" type="radio" class="h-4 w-4 text-blue-600 focus:ring-blue-500">
+                            <label for="short-term" class="ml-2 block text-gray-700">Curto Prazo (1-2 anos)</label>
+                        </div>
+                        <div class="flex items-center">
+                            <input id="medium-term" name="proposal" type="radio" class="h-4 w-4 text-green-600 focus:ring-green-500">
+                            <label for="medium-term" class="ml-2 block text-gray-700">Médio Prazo (3-5 anos)</label>
+                        </div>
+                        <div class="flex items-center">
+                            <input id="long-term" name="proposal" type="radio" class="h-4 w-4 text-blue-600 focus:ring-blue-500">
+                            <label for="long-term" class="ml-2 block text-gray-700">Longo Prazo (6+ anos)</label>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-8">
+                        <h4 class="text-lg font-semibold mb-3 text-green-600">Problemas na sua região</h4>
+                        <div class="h-48 bg-gray-100 rounded-lg flex items-center justify-center">
+                            <iframe id="mapab" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d239207.5780241191!2d-40.7275004!3d-20.2976176!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xb81780f9a4dc37%3A0xe1defb4f0c0f3b0d!2sEsp%C3%ADrito%20Santo!5e0!3m2!1spt-BR!2sbr!4v1620000000000!5m2!1spt-BR!2sbr" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-12">
+        <div class="container mx-auto px-4">
+            <div class="grid md:grid-cols-3 gap-8">
+                <div>
+                    <h3 class="text-xl font-bold mb-4">ES Equilíbrio</h3>
+                    <p class="text-gray-300">Plano estratégico para redução da desigualdade entre a Grande Vitória e o interior do Espírito Santo.</p>
+                </div>
+                <div>
+                    <h3 class="text-xl font-bold mb-4">Links Úteis</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-300 hover:text-white transition">Governo do ES</a></li>
+                        <li><a href="#" class="text-gray-300 hover:text-white transition">IBGE</a></li>
+                        <li><a href="#" class="text-gray-300 hover:text-white transition">IJSN</a></li>
+                        <li><a href="#" class="text-gray-300 hover:text-white transition">SETADES-ES</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-xl font-bold mb-4">Contato</h3>
+                    <ul class="space-y-2">
+                        <li class="flex items-center">
+                            <i class="fas fa-envelope mr-2 text-gray-300"></i>
+                            <span class="text-gray-300">contato@esequilibrio.es.gov.br</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-phone mr-2 text-gray-300"></i>
+                            <span class="text-gray-300">(27) 3636-3636</span>
+                        </li>
+                    </ul>
+                    <div class="mt-4 flex space-x-4">
+                        <a href="#" class="text-gray-300 hover:text-white transition">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a href="#" class="text-gray-300 hover:text-white transition">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a href="#" class="text-gray-300 hover:text-white transition">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="border-t border-gray-700 mt-8 pt-8 text-center text-gray-400">
+                <p>© 2023 ES Equilíbrio. Todos os direitos reservados.</p>
+                <p class="mt-2 text-sm">Atualizado em: 22/08/2025 | Conformidade com LGPD</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile menu toggle
+        document.querySelector('button.md\\:hidden').addEventListener('click', function() {
+            const nav = document.querySelector('nav.hidden');
+            nav.classList.toggle('hidden');
+            nav.classList.toggle('block');
+        });
+
+        // Charts
+        document.addEventListener('DOMContentLoaded', function() {
+            // PIB Chart
+            const pibCtx = document.getElementById('pibChart').getContext('2d');
+            const pibChart = new Chart(pibCtx, {
+                type: 'bar',
+                data: {
+                    labels: ['Vitória', 'Linhares', 'Cachoeiro', 'Colatina', 'Água Doce'],
+                    datasets: [{
+                        label: 'PIB per capita (R$ mil)',
+                        data: [90, 45, 38, 32, 25],
+                        backgroundColor: [
+                            '#1E90FF',
+                            '#4682B4',
+                            '#228B22',
+                            '#90EE90',
+                            '#4682B4'
+                        ],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    }
+                }
+            });
+
+            // IDHM Chart
+            const idhmCtx = document.getElementById('idhmChart').getContext('2d');
+            const idhmChart = new Chart(idhmCtx, {
+                type: 'line',
+                data: {
+                    labels: ['2010', '2015', '2020', '2025 (proj.)'],
+                    datasets: [
+                        {
+                            label: 'RMGV',
+                            data: [0.800, 0.820, 0.835, 0.850],
+                            borderColor: '#1E90FF',
+                            backgroundColor: 'transparent',
+                            tension: 0.1
+                        },
+                        {
+                            label: 'Interior',
+                            data: [0.600, 0.615, 0.632, 0.660],
+                            borderColor: '#228B22',
+                            backgroundColor: 'transparent',
+                            tension: 0.1
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    scales: {
+                        y: {
+                            min: 0.5,
+                            max: 0.9
+                        }
+                    }
+                }
+            });
+
+            // Desigualdade Chart
+            const desigualdadeCtx = document.getElementById('desigualdadeChart').getContext('2d');
+            const desigualdadeChart = new Chart(desigualdadeCtx, {
+                type: 'line',
+                data: {
+                    labels: ['2020', '2025', '2030', '2035'],
+                    datasets: [
+                        {
+                            label: 'Disparidade PIB (%)',
+                            data: [50, 45, 38, 30],
+                            borderColor: '#1E90FF',
+                            backgroundColor: 'transparent',
+                            tension: 0.1
+                        },
+                        {
+                            label: 'Anos de estudo (interior)',
+                            data: [8, 8.5, 9.2, 10],
+                            borderColor: '#228B22',
+                            backgroundColor: 'transparent',
+                            tension: 0.1,
+                            yAxisID: 'y1'
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    scales: {
+                        y: {
+                            type: 'linear',
+                            display: true,
+                            position: 'left',
+                            title: {
+                                display: true,
+                                text: 'Disparidade PIB (%)'
+                            }
+                        },
+                        y1: {
+                            type: 'linear',
+                            display: true,
+                            position: 'right',
+                            title: {
+                                display: true,
+                                text: 'Anos de estudo'
+                            },
+                            grid: {
+                                drawOnChartArea: false
+                            }
+                        }
+                    }
+                }
+            });
+        });
+
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Add fade-in animation when scrolling
+        const fadeElements = document.querySelectorAll('.fade-in');
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('fade-in');
+                }
+            });
+        }, { threshold: 0.1 });
+
+        fadeElements.forEach(element => {
+            observer.observe(element);
+        });
+    </script>
+</body>
+</html>
